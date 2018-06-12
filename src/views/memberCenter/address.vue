@@ -48,7 +48,7 @@ export default {
     },
     onAdd () {
       Toast('新增收货地址')
-      this.$router.push('/add_address')
+      this.$router.push('/member/add_address')
     },
     onEdit (item, index) {
       Toast('编辑收货地址:' + index)

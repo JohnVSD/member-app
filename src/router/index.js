@@ -7,7 +7,8 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '../views/login'
 
-import MemberCenter from '../views/memberCenter/index'
+import MemberView from '../views/memberCenter'
+import MemberCenter from '../views/memberCenter/memberCenter'
 import Address from '../views/memberCenter/address'
 import AddAddress from '../views/memberCenter/addAddress'
 import Coupon from '../views/memberCenter/coupon'
@@ -18,6 +19,10 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '',
+      redirect: 'member'
+    },
     {
       path: '/hello',
       name: 'HelloWorld',
@@ -30,45 +35,65 @@ export default new Router({
     },
     {
       path: '/member',
-      name: 'MemberCenter',
-      component: MemberCenter
-      // children: [
-      //   {
-      //     path: '/member/address',
-      //     name: 'Address',
-      //     component: Address
-      //   },
-      //   {
-      //     path: '/member/add_address',
-      //     name: 'AddAddress',
-      //     component: AddAddress
-      //   }
-      // ]
-    },
-    {
-      path: '/address',
-      name: 'Address',
-      component: Address
-    },
-    {
-      path: '/add_address',
-      name: 'AddAddress',
-      component: AddAddress
-    },
-    {
-      path: '/coupon',
-      name: 'Coupon',
-      component: Coupon
-    },
-    {
-      path: '/recharge',
-      name: 'Recharge',
-      component: Recharge
-    },
-    {
-      path: '/bind_phone',
-      name: 'BindPhone',
-      component: BindPhone
+      name: 'MemberView',
+      component: MemberView,
+      children: [
+        {
+          path: '',
+          name: 'MemberCenter',
+          component: MemberCenter
+        },
+        {
+          path: 'address',
+          name: 'Address',
+          component: Address
+        },
+        {
+          path: 'add_address',
+          name: 'AddAddress',
+          component: AddAddress
+        },
+        {
+          path: 'coupon',
+          name: 'Coupon',
+          component: Coupon
+        },
+        {
+          path: 'recharge',
+          name: 'Recharge',
+          component: Recharge
+        },
+        {
+          path: 'bind_phone',
+          name: 'BindPhone',
+          component: BindPhone
+        }
+      ]
     }
+    // {
+    //   path: '/address',
+    //   name: 'Address',
+    //   component: Address
+    // },
+    // {
+    //   path: '/add_address',
+    //   name: 'AddAddress',
+    //   component: AddAddress
+    // },
+    // {
+    //   path: '/coupon',
+    //   name: 'Coupon',
+    //   component: Coupon
+    // },
+    // {
+    //   path: '/recharge',
+    //   name: 'Recharge',
+    //   component: Recharge
+    // },
+    // {
+    //   path: '/bind_phone',
+    //   name: 'BindPhone',
+    //   component: BindPhone
+    // }
   ]
 })
