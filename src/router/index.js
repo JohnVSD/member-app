@@ -11,6 +11,7 @@ import MemberView from '../views/memberCenter'
 import MemberCenter from '../views/memberCenter/memberCenter'
 import AddressList from '../views/memberCenter/addressList'
 import AddAddress from '../views/memberCenter/addAddress'
+import EditAddress from '../views/memberCenter/editAddress'
 import Coupon from '../views/memberCenter/coupon'
 import Recharge from '../views/memberCenter/recharge'
 import BindPhone from '../views/memberCenter/bindPhone'
@@ -52,6 +53,11 @@ export default new Router({
           path: 'add_address',
           name: 'AddAddress',
           component: AddAddress
+        },
+        {
+          path: 'edit_address',
+          name: 'EditAddress',
+          component: EditAddress
         },
         {
           path: 'coupon',

@@ -50,7 +50,8 @@ export default {
         name: '花木兰',
         grade: '普通会员',
         imageURL: 'http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0'
-      }
+      },
+      openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M'
     }
   },
   mounted () {
@@ -61,7 +62,7 @@ export default {
     FetchWX () {
       ajax.get('https://api.weixin.qq.com/cgi-bin/user/info', {
         access_token: 'ACCESS_TOKEN',
-        openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M',
+        openid: this.openid,
         lang: 'zh_CN'
       }).then((res) => {
         console.log(res)
@@ -69,15 +70,20 @@ export default {
     },
     addUser () {
       ajax.post('wuser/addUser', {
-        id: 1,
-        email: '677880988@qq.com',
-        openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M',
+        email: '677880@qq.com',
+        openid: this.openid,
         payword: 'string',
         phone: '17263896276',
         userfrom: 'string',
-        username: '裴擒虎',
+        username: '花木兰',
         userscore: 0
       }).then((res) => {
+        console.log(res)
+        this.getUserList()
+      })
+    },
+    getUserList () {
+      ajax.get(`wuser/userList/${this.openid}`).then((res) => {
         console.log(res)
       })
     },

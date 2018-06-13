@@ -7,6 +7,7 @@
     />
     <van-address-list
       v-model="chosenAddressId"
+      :loading="loading"
       :list="list"
       @add="onAdd"
       @edit="onEdit"
@@ -26,6 +27,7 @@ export default {
   },
   data () {
     return {
+      loading: true,
       openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M',
       chosenAddressId: '1',
       list: [
@@ -49,9 +51,25 @@ export default {
   },
   methods: {
     FetchAddressList () {
+      // Toast.loading({
+      //   mask: false
+      // })
       ajax.get(`waddress/listAddress/${this.openid}`).then((res) => {
         console.log(res)
+        let addlist = []
+        for (let i = 0; i < res.data.length; i++) {
+          let obj = {}
+          let item = res.data[i]
+          obj.id = item.id
+          obj.tel = item.phone
+          obj.name = item.consignee
+          obj.address = `${item.city}${item.region}${item.adddress}`
+          addlist.push(obj)
+        }
+        this.list = addlist
+        this.chosenAddressId = addlist[1].id
       })
+      // this.loading = false
     },
     goBack () {
       this.$router.go(-1)
@@ -62,6 +80,7 @@ export default {
     },
     onEdit (item, index) {
       Toast('编辑收货地址:' + index)
+      this.$router.push('/member/edit_address')
     }
   }
 }

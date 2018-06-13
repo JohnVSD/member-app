@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar
-      title="添加地址"
+      title="编辑地址"
       left-arrow
       @click-left="goBack"
     />
@@ -58,15 +58,15 @@ export default {
       },
       searchResult: [],
       defaultAddData: {
-        address_detail: '',
-        area_code: '',
-        city: '',
-        county: '',
-        is_default: false,
-        name: '',
-        postal_code: '',
-        province: '',
-        tel: ''
+        address_detail: '东十四条',
+        area_code: '110101',
+        city: '北京市',
+        county: '东城区',
+        is_default: true,
+        name: '王莽',
+        postal_code: '100000',
+        province: '北京市',
+        tel: '17233298333'
       }
     }
   },
@@ -74,6 +74,15 @@ export default {
     // this.FetchAddress()
   },
   methods: {
+    // adddress: '海淀区中关村',
+    // city: '北京市',
+    // consignee: '收货人',
+    // phone: '17263896276',
+    // postcode: 'string',
+    // province: 'string',
+    // region: '',
+    // provinceId: 0,
+    // userId: 1
     FetchAddress (params) {
       ajax.post('waddress/address', params).then((res) => {
         console.log(res)
@@ -90,7 +99,7 @@ export default {
     onSave (content) {
       console.log(content)
       let params = {
-        userId: 36
+        // userId: 1,
         // provinceId: 1
       }
       params.adddress = content.address_detail
