@@ -5,7 +5,7 @@
       left-arrow
       @click-left="goBack"
     />
-    <div style="text-align: center;">充值</div>
+    <div style="text-align: center; margin-top:50px;">暂无积分</div>
   </div>
 </template>
 

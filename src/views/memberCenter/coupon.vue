@@ -5,7 +5,7 @@
       left-arrow
       @click-left="goBack"
     />
-    <div style="text-align: center;">暂无优惠券</div>
+    <div style="text-align: center; margin-top:50px;">暂无优惠券</div>
   </div>
 </template>
 

@@ -16,6 +16,7 @@
 
 <script>
 import { AddressList, Toast, NavBar } from 'vant'
+import ajax from '@/utils/request'
 
 export default {
   components: {
@@ -25,6 +26,7 @@ export default {
   },
   data () {
     return {
+      openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M',
       chosenAddressId: '1',
       list: [
         {
@@ -42,7 +44,15 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.FetchAddressList()
+  },
   methods: {
+    FetchAddressList () {
+      ajax.get(`waddress/listAddress/${this.openid}`).then((res) => {
+        console.log(res)
+      })
+    },
     goBack () {
       this.$router.go(-1)
     },

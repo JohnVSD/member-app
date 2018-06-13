@@ -9,7 +9,7 @@ import Login from '../views/login'
 
 import MemberView from '../views/memberCenter'
 import MemberCenter from '../views/memberCenter/memberCenter'
-import Address from '../views/memberCenter/address'
+import AddressList from '../views/memberCenter/addressList'
 import AddAddress from '../views/memberCenter/addAddress'
 import Coupon from '../views/memberCenter/coupon'
 import Recharge from '../views/memberCenter/recharge'
@@ -44,9 +44,9 @@ export default new Router({
           component: MemberCenter
         },
         {
-          path: 'address',
-          name: 'Address',
-          component: Address
+          path: 'address_list',
+          name: 'AddressList',
+          component: AddressList
         },
         {
           path: 'add_address',
@@ -70,30 +70,5 @@ export default new Router({
         }
       ]
     }
-    // {
-    //   path: '/address',
-    //   name: 'Address',
-    //   component: Address
-    // },
-    // {
-    //   path: '/add_address',
-    //   name: 'AddAddress',
-    //   component: AddAddress
-    // },
-    // {
-    //   path: '/coupon',
-    //   name: 'Coupon',
-    //   component: Coupon
-    // },
-    // {
-    //   path: '/recharge',
-    //   name: 'Recharge',
-    //   component: Recharge
-    // },
-    // {
-    //   path: '/bind_phone',
-    //   name: 'BindPhone',
-    //   component: BindPhone
-    // }
   ]
 })

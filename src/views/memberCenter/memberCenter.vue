@@ -3,9 +3,9 @@
     <van-row class="user-poster">
       <van-col span="24">
         <van-card
-          title="娜可露露"
-          desc="普通会员"
-          :thumb="imageURL"
+          :title="userInfo.name"
+          :desc="userInfo.grade"
+          :thumb="userInfo.imageURL"
         />
       </van-col>
     </van-row>
@@ -32,6 +32,7 @@ import {
   CellGroup,
   Button
 } from 'vant'
+import ajax from '@/utils/request'
 
 export default {
   components: {
@@ -45,13 +46,44 @@ export default {
   },
   data () {
     return {
-      imageURL: 'https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg'
+      userInfo: {
+        name: '花木兰',
+        grade: '普通会员',
+        imageURL: 'http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0'
+      }
     }
   },
+  mounted () {
+    // this.FetchWX()
+    this.addUser()
+  },
   methods: {
+    FetchWX () {
+      ajax.get('https://api.weixin.qq.com/cgi-bin/user/info', {
+        access_token: 'ACCESS_TOKEN',
+        openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M',
+        lang: 'zh_CN'
+      }).then((res) => {
+        console.log(res)
+      })
+    },
+    addUser () {
+      ajax.post('wuser/addUser', {
+        id: 1,
+        email: '677880988@qq.com',
+        openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M',
+        payword: 'string',
+        phone: '17263896276',
+        userfrom: 'string',
+        username: '裴擒虎',
+        userscore: 0
+      }).then((res) => {
+        console.log(res)
+      })
+    },
     handleAddClick () {
       console.log(this.$router)
-      this.$router.push('/member/address')
+      this.$router.push('/member/address_list')
     },
     handleRecharge () {
       this.$router.push('/member/recharge')
@@ -77,11 +109,11 @@ export default {
 .user {
   &-poster {
     width: 100%;
-    height: 150px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('../../assets/img/bg.jpeg') no-repeat;
+    background: url('../../assets/img/timg.jpg') no-repeat;
     background-size: cover;
     .van-card{
       background: none;
