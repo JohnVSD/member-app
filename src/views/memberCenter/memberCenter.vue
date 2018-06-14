@@ -33,6 +33,7 @@ import {
   Button
 } from 'vant'
 import ajax from '@/utils/request'
+import localStore from 'store'
 
 export default {
   components: {
@@ -47,7 +48,8 @@ export default {
   data () {
     return {
       userInfo: {
-        name: '花木兰',
+        id: 0,
+        name: '',
         grade: '普通会员',
         imageURL: 'http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0'
       },
@@ -84,10 +86,12 @@ export default {
     getUserList () {
       ajax.get(`wuser/userList/${this.openid}`).then((res) => {
         console.log(res)
+        this.userInfo.name = res.data.username
+        this.userInfo.id = res.data.id
+        localStore.set('userInfo', this.userInfo)
       })
     },
     handleAddClick () {
-      console.log(this.$router)
       this.$router.push('/member/address_list')
     },
     handleRecharge () {

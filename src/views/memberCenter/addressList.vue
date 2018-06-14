@@ -102,11 +102,12 @@ export default {
           localStore.set('addDetails', obj)
         }
       }
-      this.$router.push({path: '/member/edit_address', query: { id: item.id }})
+      localStore.set('addressId', item.id)
+      this.$router.push('/member/edit_address')
     },
     setDefault (item) {
       console.log(item)
-      this.defaultAddress(item.id)
+      // this.defaultAddress(item.id)
     }
   }
 }

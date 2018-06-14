@@ -34,6 +34,8 @@ export default {
   data () {
     return {
       openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M',
+      userinfo: localStore.get('userInfo'),
+      addressId: localStore.get('addressId'),
       areaList: {
         province_list: {
           110000: '北京市',
@@ -73,7 +75,6 @@ export default {
   },
   mounted () {
     this.defaultAddData = localStore.get('addDetails')
-    console.log(this.$route.query)
   },
   methods: {
     editAddress (params) {
@@ -99,9 +100,9 @@ export default {
     onSave (content) {
       console.log(content)
       let params = {
-        userId: 36
+        userId: this.userinfo.id
       }
-      params.id = this.$route.query.id
+      params.id = this.addressId
       params.adddress = content.address_detail
       params.city = content.city
       params.consignee = content.name
