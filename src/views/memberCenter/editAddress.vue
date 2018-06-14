@@ -86,8 +86,8 @@ export default {
         }
       })
     },
-    deletedAddress (id) {
-      ajax.delete(`waddress/deleteId/${id}`).then((res) => {
+    deletedAddress () {
+      ajax.delete(`waddress/deleteId/${this.addressId}`).then((res) => {
         if (res.status === 200) {
           Toast('删除成功')
           this.$router.push('/member/address_list')
@@ -115,8 +115,7 @@ export default {
       this.editAddress(params)
     },
     onDelete () {
-      let id = this.$route.query.id
-      this.deletedAddress(id)
+      this.deletedAddress()
     },
     onChangeDetail (val) {
       if (val) {

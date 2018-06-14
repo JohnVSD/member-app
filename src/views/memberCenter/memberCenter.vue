@@ -49,7 +49,7 @@ export default {
     return {
       userInfo: {
         id: 0,
-        name: '',
+        name: '裴擒虎',
         grade: '普通会员',
         imageURL: 'http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0'
       },
