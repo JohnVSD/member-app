@@ -3,18 +3,10 @@
  */
 /* global window:true document:true */
 import axios from 'axios'
-// import qs from 'qs'
-// import { set } from 'lodash'
 
 const ajax = axios.create({
   baseURL: 'http://140.143.227.194:8001/weixin/',
   timeout: 5000
-  // headers: {
-  //   // 'Accept': '*/*'
-  //   'X-Custom-Header': 'foobar',
-  //   'Content-Type': 'application/json'
-  //   // 'Access-Control-Allow-Origin': '*'
-  // }
 })
 
 // 添加请求拦截器

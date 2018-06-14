@@ -55,7 +55,6 @@ export default {
     }
   },
   mounted () {
-    // this.FetchWX()
     this.addUser()
   },
   methods: {

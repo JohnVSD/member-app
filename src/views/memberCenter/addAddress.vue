@@ -9,12 +9,9 @@
       :area-list="areaList"
       :address-info="defaultAddData"
       show-postal
-      show-delete
       show-set-default
       show-search-result
-      :search-result="searchResult"
       @save="onSave"
-      @delete="onDelete"
       @change-detail="onChangeDetail"
     />
   </div>
@@ -70,18 +67,14 @@ export default {
       }
     }
   },
-  mounted () {
-    // this.FetchAddress()
-  },
   methods: {
     FetchAddress (params) {
       ajax.post('waddress/address', params).then((res) => {
         console.log(res)
-      })
-    },
-    deletedAddress (params) {
-      ajax.delete(`waddress/deleteId/${params.id}`).then((res) => {
-        console.log(res)
+        if (res.status === 200) {
+          Toast('添加成功')
+          this.$router.push('/member/address_list')
+        }
       })
     },
     goBack () {
@@ -91,7 +84,6 @@ export default {
       console.log(content)
       let params = {
         userId: 36
-        // provinceId: 1
       }
       params.adddress = content.address_detail
       params.city = content.city
@@ -101,16 +93,9 @@ export default {
       params.province = content.province
       params.region = content.county
       params.is_default = content.is_default
+      params.provinceId = content.area_code
 
       this.FetchAddress(params)
-      Toast('save')
-    },
-    onDelete () {
-      Toast('delete')
-      let params = {
-        id: 1
-      }
-      this.deletedAddress(params)
     },
     onChangeDetail (val) {
       if (val) {

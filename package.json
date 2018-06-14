@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "lodash": "^4.17.5",
+    "store": "^2.0.12",
     "vant": "^1.1.7",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
@@ -56,9 +57,9 @@
     "html-webpack-plugin": "^2.30.1",
     "jest": "^22.0.4",
     "jest-serializer-vue": "^0.3.0",
-    "nightwatch": "^0.9.12",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "nightwatch": "^0.9.12",
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",

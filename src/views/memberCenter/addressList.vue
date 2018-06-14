@@ -11,12 +11,14 @@
       :list="list"
       @add="onAdd"
       @edit="onEdit"
+      @select="setDefault"
     />
   </div>
 </template>
 
 <script>
 import { AddressList, Toast, NavBar } from 'vant'
+import localStore from 'store'
 import ajax from '@/utils/request'
 
 export default {
@@ -31,19 +33,20 @@ export default {
       openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M',
       chosenAddressId: '1',
       list: [
-        {
-          id: '1',
-          name: '张三',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-        },
-        {
-          id: '2',
-          name: '李四',
-          tel: '1310000000',
-          address: '浙江省杭州市拱墅区莫干山路 50 号'
-        }
-      ]
+        // {
+        //   id: '1',
+        //   name: '张三',
+        //   tel: '13000000000',
+        //   address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
+        // },
+        // {
+        //   id: '2',
+        //   name: '李四',
+        //   tel: '1310000000',
+        //   address: '浙江省杭州市拱墅区莫干山路 50 号'
+        // }
+      ],
+      addresslist: []
     }
   },
   mounted () {
@@ -51,9 +54,6 @@ export default {
   },
   methods: {
     FetchAddressList () {
-      // Toast.loading({
-      //   mask: false
-      // })
       ajax.get(`waddress/listAddress/${this.openid}`).then((res) => {
         console.log(res)
         let addlist = []
@@ -67,20 +67,46 @@ export default {
           addlist.push(obj)
         }
         this.list = addlist
-        this.chosenAddressId = addlist[1].id
+        this.addresslist = res.data
+        this.chosenAddressId = addlist[0].id
       })
-      // this.loading = false
+    },
+    defaultAddress (id) {
+      ajax.put(`waddress/editStart/${id}/1`).then((res) => {
+        if (res.status === 200) {
+          Toast('已设为默认地址')
+          // this.$router.push('/member/address_list')
+        }
+      })
     },
     goBack () {
       this.$router.go(-1)
     },
     onAdd () {
-      Toast('新增收货地址')
       this.$router.push('/member/add_address')
     },
     onEdit (item, index) {
-      Toast('编辑收货地址:' + index)
-      this.$router.push('/member/edit_address')
+      for (let i in this.addresslist) {
+        let adds = this.addresslist[i]
+        if (adds.id === item.id) {
+          let obj = {}
+          obj.address_detail = adds.adddress
+          obj.city = adds.city
+          obj.county = adds.region
+          obj.is_default = false
+          obj.name = adds.consignee
+          obj.postal_code = adds.postcode
+          obj.province = adds.province
+          obj.tel = adds.phone
+          obj.area_code = `${adds.provinceId}`
+          localStore.set('addDetails', obj)
+        }
+      }
+      this.$router.push({path: '/member/edit_address', query: { id: item.id }})
+    },
+    setDefault (item) {
+      console.log(item)
+      this.defaultAddress(item.id)
     }
   }
 }

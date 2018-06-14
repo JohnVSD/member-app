@@ -23,6 +23,7 @@
 <script>
 import { AddressEdit, Toast, NavBar } from 'vant'
 import ajax from '@/utils/request'
+import localStore from 'store'
 
 export default {
   components: {
@@ -71,26 +72,25 @@ export default {
     }
   },
   mounted () {
-    // this.FetchAddress()
+    this.defaultAddData = localStore.get('addDetails')
+    console.log(this.$route.query)
   },
   methods: {
-    // adddress: '海淀区中关村',
-    // city: '北京市',
-    // consignee: '收货人',
-    // phone: '17263896276',
-    // postcode: 'string',
-    // province: 'string',
-    // region: '',
-    // provinceId: 0,
-    // userId: 1
-    FetchAddress (params) {
-      ajax.post('waddress/address', params).then((res) => {
+    editAddress (params) {
+      ajax.put(`waddress/editAddress/${params.id}`, params).then((res) => {
         console.log(res)
+        if (res.status === 200) {
+          Toast('修改成功')
+          this.$router.push('/member/address_list')
+        }
       })
     },
-    deletedAddress (params) {
-      ajax.delete(`waddress/deleteId/${params.id}`).then((res) => {
-        console.log(res)
+    deletedAddress (id) {
+      ajax.delete(`waddress/deleteId/${id}`).then((res) => {
+        if (res.status === 200) {
+          Toast('删除成功')
+          this.$router.push('/member/address_list')
+        }
       })
     },
     goBack () {
@@ -99,9 +99,9 @@ export default {
     onSave (content) {
       console.log(content)
       let params = {
-        // userId: 1,
-        // provinceId: 1
+        userId: 36
       }
+      params.id = this.$route.query.id
       params.adddress = content.address_detail
       params.city = content.city
       params.consignee = content.name
@@ -109,17 +109,13 @@ export default {
       params.postcode = content.postal_code
       params.province = content.province
       params.region = content.county
-      params.is_default = content.is_default
+      params.provinceId = content.area_code
 
-      this.FetchAddress(params)
-      Toast('save')
+      this.editAddress(params)
     },
     onDelete () {
-      Toast('delete')
-      let params = {
-        id: 1
-      }
-      this.deletedAddress(params)
+      let id = this.$route.query.id
+      this.deletedAddress(id)
     },
     onChangeDetail (val) {
       if (val) {
