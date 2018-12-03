@@ -3,6 +3,10 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const HappyPack = require('happypack')
+const os = require('os');
+
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -43,16 +47,20 @@ module.exports = {
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
+        exclude: /node_modules/,
         loader: 'vue-loader',
         options: vueLoaderConfig
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        exclude: /node_modules/,
+        // loader: 'babel-loader',
+        loader: 'happypack/loader?id=happyBabel',
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        exclude: /node_modules/,
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -69,6 +77,7 @@ module.exports = {
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        exclude: /node_modules/,
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -76,6 +85,27 @@ module.exports = {
         }
       }
     ]
+  },
+  plugins: [
+    new HappyPack({
+      //用id来标识 happypack处理那里类文件
+      id: 'happyBabel',
+      //如何处理  用法和loader 的配置一样
+      loaders: [{
+        loader: 'babel-loader?cacheDirectory=true',
+      }],
+      //共享进程池
+      threadPool: happyThreadPool,
+      //允许 HappyPack 输出日志
+      verbose: true
+    })
+  ],
+  externals: {
+    vue: "Vue",
+    vueRouter: "VueRouter",
+    lodash: "lodash",
+    axios: "axios",
+    vuex: "Vuex"
   },
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

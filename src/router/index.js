@@ -15,6 +15,8 @@ import EditAddress from '../views/memberCenter/editAddress'
 import Coupon from '../views/memberCenter/coupon'
 import Recharge from '../views/memberCenter/recharge'
 import BindPhone from '../views/memberCenter/bindPhone'
+import Video from '../views/video'
+import Test from '../views/test/test'
 
 Vue.use(Router)
 
@@ -33,6 +35,17 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    // video测试
+    {
+      path: '/video',
+      name: 'Video',
+      component: Video
+    },
+    {
+      path: '/test',
+      name: 'Test',
+      component: Test
     },
     {
       path: '/member',

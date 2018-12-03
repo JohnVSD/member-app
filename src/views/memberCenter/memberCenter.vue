@@ -56,6 +56,9 @@ export default {
       openid: 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M'
     }
   },
+  created () {
+    console.log(this.userInfo)
+  },
   mounted () {
     this.addUser()
   },
